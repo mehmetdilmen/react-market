@@ -1,0 +1,18 @@
+@import "./variables";
+
+.logo-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo-content {
+    text-align: left;
+    justify-content: left;
+    align-items: left;
+  }
+}

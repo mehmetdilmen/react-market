@@ -1,0 +1,38 @@
+@import "./variables";
+
+.header-cart-container {
+  width: 129px;
+  height: 100%;
+  background-color: $brand_2;
+  display: flex;
+  position: absolute;
+  right: 80px;
+}
+
+@media only screen and (max-width: 600px) {
+  .header-cart-container {
+    right: 0px;
+  }
+}
+
+.icon-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.img-icon {
+  background-color: white !important;
+  color: white !important;
+}
+
+.cart-counter {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  font-weight: 700;
+  font-size: 16px;
+}

@@ -1,0 +1,32 @@
+@import "./variables";
+
+.content-area {
+  .title {
+    margin-bottom: 10px;
+    .heading-text {
+      font-weight: 400;
+      font-size: 20px;
+      color: #6f6f6f;
+    }
+  }
+
+  .tabs {
+    display: flex;
+    margin-bottom: 10px;
+    .spacer-tabs {
+      margin-left: 10px;
+    }
+    .btn-tab {
+      display: flex;
+      width: 61px;
+      height: 30px;
+      border-radius: 3px;
+      color: $brand_1;
+      background-color: #f2f0fd;
+    }
+    .selected {
+      color: #f2f0fd;
+      background-color: $brand_2 !important;
+    }
+  }
+}

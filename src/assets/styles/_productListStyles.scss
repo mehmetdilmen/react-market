@@ -1,0 +1,22 @@
+@import "./variables";
+
+.product-list-container {
+  display: flex;
+  flex-direction: row;
+  width: 408px;
+  height: 100%;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.product-list {
+  width: 124px;
+  height: 225px;
+}
+
+.product-area {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  padding: 20px;
+  background-color: $white;
+}
