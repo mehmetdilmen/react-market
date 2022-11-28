@@ -10,6 +10,7 @@ import { configureStore } from "./store/configureStore";
 import Header from "./layouts/header/Header";
 
 import { Row, Col } from "antd";
+import Footer from "./layouts/footer/Footer";
 
 const store = configureStore();
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -22,6 +23,9 @@ root.render(
         </Col>
         <Col span={24}>
           <App />
+        </Col>
+        <Col span={24}>
+          <Footer />
         </Col>
       </Row>
     </React.StrictMode>

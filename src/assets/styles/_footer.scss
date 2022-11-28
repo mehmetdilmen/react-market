@@ -1,0 +1,27 @@
+@import "./variables";
+
+.footer {
+  background-color: #e5e5e5;
+  height: 150px;
+
+  .links {
+    height: 100%;
+    display: flex;
+    text-align: center;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 20px;
+
+    .link {
+      color: $brand_1;
+    }
+
+    .dot-link {
+      position: relative;
+      top: -5px;
+      color: $brand_1;
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+}
