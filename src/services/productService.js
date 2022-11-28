@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default class ProductService {
   getProducts() {
-    return axios.get("http://localhost:3000/apis/companies");
+    return axios.get("http://localhost:3001/apis/companies");
   }
 
   getByProductName(productName) {
@@ -13,41 +13,41 @@ export default class ProductService {
   }
 
   getAllProduct() {
-    return axios.get(`http://localhost:3000/items`);
+    return axios.get(`http://localhost:3001/items`);
   }
 
   getProductWithPagination(pageNumber) {
     return axios.get(
-      `http://localhost:3000/items?_page=${pageNumber}&_limit=16`
+      `http://localhost:3001/items?_page=${pageNumber}&_limit=16`
     );
   }
 
   getProductFilterBrand(brandName) {
-    return axios.get(`http://localhost:3000/items?q=${brandName}&attr=manufacturer&_page=1&_limit=16`);
+    return axios.get(`http://localhost:3001/items?q=${brandName}&attr=manufacturer&_page=1&_limit=16`);
   }
 
   getProductSortNewOld(addedTime) {
-    return axios.get(`http://localhost:3000/items?_sort=added=${addedTime}&_page=1&_limit=16`);
+    return axios.get(`http://localhost:3001/items?_sort=added=${addedTime}&_page=1&_limit=16`);
   }
 
   getProductSortPrice(priceType) {
-    return axios.get(`http://localhost:3000/items?_sort=price&_order=${priceType}&_page=1&_limit=16`);
+    return axios.get(`http://localhost:3001/items?_sort=price&_order=${priceType}&_page=1&_limit=16`);
   }
 
   getProductFilterTags(tagName) {
-    return axios.get(`http://localhost:3000/items?q=${tagName}&attr=tags&_page=1&_limit=16`);
+    return axios.get(`http://localhost:3001/items?q=${tagName}&attr=tags&_page=1&_limit=16`);
   }
 
   getAllBrands() {
-    return axios.get("http://localhost:3000/brands");
+    return axios.get("http://localhost:3001/brands");
   }
 
   getAllTags() {
-    return axios.get("http://localhost:3000/tags");
+    return axios.get("http://localhost:3001/tags");
   }
 
   //Fulltext search with name
   getSearchBrandName(searchParam) {
-    return axios.get(`http://localhost:3000/brands?q=${searchParam}`);
+    return axios.get(`http://localhost:3001/brands?q=${searchParam}`);
   }
 }
