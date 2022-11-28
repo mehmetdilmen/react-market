@@ -25,34 +25,61 @@ function TagFilter({ data, filterTitle }) {
   //Dispatch
   const dispatch = useDispatch();
 
-  const [indeterminate, setIndeterminate] = useState(true);
+  //States
+  const [checkData, setCheckData] = useState([]);
+
   const [checkAll, setCheckAll] = useState(false);
 
   const [searchKey, setSearchKey] = useState("");
 
-  const onChange = (list) => {
-    //setCheckedList(list);
+  const onCheckAllChange = (e) => {
     dispatch(listProductLoad(true));
 
-    setIndeterminate(!!list.length && list.length < data.length);
-    setCheckAll(list.length === data.length);
+    let productService = new ProductService();
+
+    productService.getProductFilterTags("").then((result) => {
+      dispatch(listProductLoad(false));
+      dispatch(listProduct(result));
+    });
+
+    setCheckAll(e.target.checked);
+  };
+
+  const onChange = (e) => {
+    dispatch(listProductLoad(true));
+
+    let reqeustData = [];
+    if (e.target.checked) {
+      if (checkData.length) {
+        checkData.filter((item) => {
+          if (item.name !== e.target.value) {
+            setCheckData([...checkData, { name: e.target.value }]);
+            reqeustData = [...checkData, { name: e.target.value }];
+          }
+        });
+      } else {
+        setCheckData([...checkData, { name: e.target.value }]);
+        reqeustData = [...checkData, { name: e.target.value }];
+      }
+    } else {
+      const checkFiltered = checkData.filter(
+        (item) => item.name !== e.target.value
+      );
+      reqeustData = checkFiltered;
+
+      setCheckData(checkFiltered);
+    }
 
     let search = "";
-    for (const element of list) {
-      search += element + "&";
-    }
+    reqeustData.map((item) => {
+      search += item.name + "&";
+    });
 
     let productService = new ProductService();
     productService.getProductFilterTags(search).then((result) => {
       dispatch(listProductLoad(false));
       dispatch(listProduct(result));
     });
-  };
-
-  const onCheckAllChange = (e) => {
-    //setCheckedList(e.target.checked ? data : []);
-    setIndeterminate(false);
-    setCheckAll(e.target.checked);
   };
 
   const onSearch = (value) => {
@@ -71,21 +98,38 @@ function TagFilter({ data, filterTitle }) {
           />
         </div>
         <div className="filter-container">
-          {/* <Checkbox
-            indeterminate={indeterminate}
+          <Checkbox
             onChange={onCheckAllChange}
-            checked={checkAll}
             className="checkbox-item all-item"
           >
             All
-          </Checkbox> */}
-          <CheckboxGroup
-            className="checkbox-item"
-            onChange={onChange}
-            options={data.filter((el) =>
-              el.toLowerCase().includes(searchKey.toLowerCase())
+          </Checkbox>
+
+          {data
+            .filter((el) => el.toLowerCase().includes(searchKey.toLowerCase()))
+            .map((i, index) =>
+              checkAll ? (
+                <Checkbox
+                  className="checkbox-item all-item"
+                  disabled={checkAll}
+                  key={index}
+                  checked={checkAll}
+                >
+                  {i}
+                </Checkbox>
+              ) : (
+                <Checkbox
+                  className="checkbox-item all-item"
+                  onChange={onChange}
+                  value={i}
+                  key={"normalCheck" + index}
+                  id={"normalCheck" + index}
+                  defaultChecked={false}
+                >
+                  {i}
+                </Checkbox>
+              )
             )}
-          />
         </div>
       </div>
     </div>

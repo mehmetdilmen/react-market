@@ -14,27 +14,49 @@ import { useDispatch } from "react-redux";
 import "../../assets/styles/_checkboxFilterStyles.scss";
 
 //Stores
-import { listProduct, listProductLoad } from "../../store/actions/productActions";
+import {
+  listProduct,
+  listProductLoad,
+} from "../../store/actions/productActions";
 
 function BrandFilter({ data, filterTitle }) {
-  const CheckboxGroup = Checkbox.Group;
-
   const dispatch = useDispatch();
 
-  const [indeterminate, setIndeterminate] = useState(true);
+  const [checkData, setCheckData] = useState([]);
+
   const [checkAll, setCheckAll] = useState(false);
 
   const [searchKey, setSearchKey] = useState("");
 
-  const onChange = (list) => {
-    setIndeterminate(!!list.length && list.length < data.length);
-    setCheckAll(list.length === data.length);
+  const onChange = (e) => {
     dispatch(listProductLoad(true));
 
-    let search = "";
-    for (const element of list) {
-      search += element + "&";
+    let reqeustData = [];
+    if (e.target.checked) {
+      if (checkData.length) {
+        checkData.filter((item) => {
+          if (item.name !== e.target.value) {
+            setCheckData([...checkData, { name: e.target.value }]);
+            reqeustData = [...checkData, { name: e.target.value }];
+          }
+        });
+      } else {
+        setCheckData([...checkData, { name: e.target.value }]);
+        reqeustData = [...checkData, { name: e.target.value }];
+      }
+    } else {
+      const checkFiltered = checkData.filter(
+        (item) => item.name !== e.target.value
+      );
+      reqeustData = checkFiltered;
+
+      setCheckData(checkFiltered);
     }
+
+    let search = "";
+    reqeustData.map((item) => {
+      search += item.name + "&";
+    });
 
     let productService = new ProductService();
     productService.getProductFilterBrand(search).then((result) => {
@@ -44,7 +66,15 @@ function BrandFilter({ data, filterTitle }) {
   };
 
   const onCheckAllChange = (e) => {
-    setIndeterminate(false);
+    dispatch(listProductLoad(true));
+
+    let productService = new ProductService();
+
+    productService.getProductFilterBrand("").then((result) => {
+      dispatch(listProductLoad(false));
+      dispatch(listProduct(result));
+    });
+
     setCheckAll(e.target.checked);
   };
 
@@ -64,21 +94,38 @@ function BrandFilter({ data, filterTitle }) {
           />
         </div>
         <div className="filter-container">
-          {/* <Checkbox
-            indeterminate={indeterminate}
+          <Checkbox
             onChange={onCheckAllChange}
-            checked={checkAll}
             className="checkbox-item all-item"
           >
             All
-          </Checkbox> */}
-          <CheckboxGroup
-            className="checkbox-item"
-            onChange={onChange}
-            options={data.filter((el) =>
-              el.toLowerCase().includes(searchKey.toLowerCase())
+          </Checkbox>
+
+          {data
+            .filter((el) => el.toLowerCase().includes(searchKey.toLowerCase()))
+            .map((i, index) =>
+              checkAll ? (
+                <Checkbox
+                  className="checkbox-item all-item"
+                  disabled={checkAll}
+                  key={index}
+                  checked={checkAll}
+                >
+                  {i}
+                </Checkbox>
+              ) : (
+                <Checkbox
+                  className="checkbox-item all-item"
+                  onChange={onChange}
+                  value={i}
+                  key={"normalCheck" + index}
+                  id={"normalCheck" + index}
+                  defaultChecked={false}
+                >
+                  {i}
+                </Checkbox>
+              )
             )}
-          />
         </div>
       </div>
     </div>
