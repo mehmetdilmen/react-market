@@ -8,7 +8,10 @@ import { useDispatch } from "react-redux";
 import { Checkbox, Input } from "antd";
 
 //Store
-import { listProduct } from "../../store/actions/productActions";
+import {
+  listProduct,
+  listProductLoad,
+} from "../../store/actions/productActions";
 
 //Service
 import ProductService from "./../../services/productService";
@@ -29,13 +32,21 @@ function TagFilter({ data, filterTitle }) {
 
   const onChange = (list) => {
     //setCheckedList(list);
+    dispatch(listProductLoad(true));
+
     setIndeterminate(!!list.length && list.length < data.length);
     setCheckAll(list.length === data.length);
 
+    let search = "";
+    for (const element of list) {
+      search += element + "&";
+    }
+
     let productService = new ProductService();
-    productService
-      .getProductFilterTags(list)
-      .then((result) => dispatch(listProduct(result)));
+    productService.getProductFilterTags(search).then((result) => {
+      dispatch(listProductLoad(false));
+      dispatch(listProduct(result));
+    });
   };
 
   const onCheckAllChange = (e) => {

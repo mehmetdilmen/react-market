@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import "../../assets/styles/_checkboxFilterStyles.scss";
 
 //Stores
-import { listProduct } from "../../store/actions/productActions";
+import { listProduct, listProductLoad } from "../../store/actions/productActions";
 
 function BrandFilter({ data, filterTitle }) {
   const CheckboxGroup = Checkbox.Group;
@@ -29,11 +29,18 @@ function BrandFilter({ data, filterTitle }) {
   const onChange = (list) => {
     setIndeterminate(!!list.length && list.length < data.length);
     setCheckAll(list.length === data.length);
+    dispatch(listProductLoad(true));
+
+    let search = "";
+    for (const element of list) {
+      search += element + "&";
+    }
 
     let productService = new ProductService();
-    productService
-      .getProductFilterBrand(list)
-      .then((result) => dispatch(listProduct(result)));
+    productService.getProductFilterBrand(search).then((result) => {
+      dispatch(listProductLoad(false));
+      dispatch(listProduct(result));
+    });
   };
 
   const onCheckAllChange = (e) => {

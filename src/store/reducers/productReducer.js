@@ -1,8 +1,12 @@
-import { LIST_PRODUCTS } from "../actions/productActions";
-import { productItems } from "../initialValues/productItems";
+import {
+  LIST_PRODUCTS,
+  LIST_PRODUCTS_LOADING,
+} from "../actions/productActions";
+import { productItems, productLoading } from "../initialValues/productItems";
 
 const initialState = {
   productItems: productItems,
+  productLoading: productLoading,
 };
 
 export default function productReducer(
@@ -14,6 +18,11 @@ export default function productReducer(
       return {
         ...state,
         productItems: payload?.data,
+      };
+    case LIST_PRODUCTS_LOADING:
+      return {
+        ...state,
+        productLoading: payload,
       };
     default:
       return state;

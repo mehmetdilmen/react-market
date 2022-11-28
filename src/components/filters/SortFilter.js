@@ -11,7 +11,10 @@ import { useDispatch } from "react-redux";
 import "../../assets/styles/_sortFilterStyles.scss";
 
 //Store
-import { listProduct } from "../../store/actions/productActions";
+import {
+  listProduct,
+  listProductLoad,
+} from "../../store/actions/productActions";
 
 //Service
 import ProductService from "./../../services/productService";
@@ -23,17 +26,26 @@ function SortFilter() {
 
   const onChange = (e) => {
     setValue(e.target.value);
+    dispatch(listProductLoad(true));
 
     let productService = new ProductService();
 
     if (e.target.values.sort === "date") {
       productService
         .getProductSortNewOld(e.target.values.type)
-        .then((result) => dispatch(listProduct(result)));
+        .then((result) => {
+          dispatch(listProductLoad(false));
+
+          dispatch(listProduct(result));
+        });
     } else {
       productService
         .getProductSortPrice(e.target.values.type)
-        .then((result) => dispatch(listProduct(result)));
+        .then((result) => {
+          dispatch(listProductLoad(false));
+
+          dispatch(listProduct(result));
+        });
     }
   };
 
@@ -50,8 +62,12 @@ function SortFilter() {
               <Radio value={2} values={{ type: "asc", sort: "price" }}>
                 Price high to low
               </Radio>
-              <Radio value={3} values={{ type: "desc", sort: "date" }}>New to old</Radio>
-              <Radio value={4} values={{ type: "asc", sort: "date" }}>Old to new</Radio>
+              <Radio value={3} values={{ type: "desc", sort: "date" }}>
+                New to old
+              </Radio>
+              <Radio value={4} values={{ type: "asc", sort: "date" }}>
+                Old to new
+              </Radio>
             </Space>
           </Radio.Group>
         </div>

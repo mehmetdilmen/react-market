@@ -14,7 +14,10 @@ import ProductService from "./../../services/productService";
 import { useDispatch } from "react-redux";
 
 //Store
-import { listProduct } from "../../store/actions/productActions";
+import {
+  listProduct,
+  listProductLoad,
+} from "../../store/actions/productActions";
 
 //Styles
 import "../../assets/styles/_productListStyles.scss";
@@ -25,10 +28,11 @@ function ProductList({ data, size }) {
 
   const onChange = (page) => {
     let productService = new ProductService();
-
-    productService
-      .getProductWithPagination(page)
-      .then((result) => dispatch(listProduct(result)));
+    dispatch(listProductLoad(true));
+    productService.getProductWithPagination(page).then((result) => {
+      dispatch(listProductLoad(false));
+      dispatch(listProduct(result));
+    });
 
     setCurrentPage(page);
   };
@@ -47,14 +51,18 @@ function ProductList({ data, size }) {
           </Col>
         ))}
 
-      <Pagination
-        defaultCurrent={16}
-        current={currentPage}
-        total={size}
-        showSizeChanger={false}
-        showQuickJumper={false}
-        onChange={onChange}
-      />
+      {size > 0 ? (
+        <Pagination
+          defaultCurrent={16}
+          current={currentPage}
+          total={size}
+          showSizeChanger={false}
+          showQuickJumper={false}
+          onChange={onChange}
+        />
+      ) : (
+        <></>
+      )}
     </Row>
   );
 }

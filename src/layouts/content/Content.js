@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 //Antd
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 
 //Component
 import ProductList from "../../components/product/ProductList";
@@ -14,7 +14,10 @@ import ProductList from "../../components/product/ProductList";
 import ProductService from "./../../services/productService";
 
 //Store
-import { listProduct } from "../../store/actions/productActions";
+import {
+  listProduct,
+  listProductLoad,
+} from "../../store/actions/productActions";
 
 //Styles
 import "../../assets/styles/_contentStyles.scss";
@@ -26,25 +29,32 @@ function Content() {
   const [selectedTab, setSelectedTab] = useState("mug");
 
   const productState = useSelector((state) => state?.product?.productItems);
+  const productLoadingState = useSelector(
+    (state) => state?.product.productLoading
+  );
 
   const onTabChange = (tabName) => {
     setSelectedTab(tabName);
     let productService = new ProductService();
-    productService
-      .getProductFilterTags(tabName)
-      .then((result) => dispatch(listProduct(result)));
+    productService.getProductFilterTags(tabName).then((result) => {
+      dispatch(listProduct(result));
+      dispatch(listProductLoad(false));
+    });
   };
 
   useEffect(() => {
+    dispatch(listProductLoad(true));
+
     let productService = new ProductService();
     productService
       .getAllProduct()
       .then((result) =>
         setProductsTotalSize(parseInt(result.data.length / 16))
       );
-    productService
-      .getProductWithPagination(1)
-      .then((result) => dispatch(listProduct(result)));
+    productService.getProductWithPagination(1).then((result) => {
+      dispatch(listProductLoad(false));
+      dispatch(listProduct(result));
+    });
   }, []);
 
   return (
@@ -69,10 +79,9 @@ function Content() {
           shirt
         </Button>
       </div>
-      <ProductList
-        data={productState}
-        size={productsTotalSize}
-      />
+      <Spin tip="Loading..." spinning={productLoadingState}>
+        <ProductList data={productState} size={productsTotalSize} />
+      </Spin>
     </div>
   );
 }
