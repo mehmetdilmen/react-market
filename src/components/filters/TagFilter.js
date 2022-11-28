@@ -71,14 +71,14 @@ function TagFilter({ data, filterTitle }) {
           />
         </div>
         <div className="filter-container">
-          <Checkbox
+          {/* <Checkbox
             indeterminate={indeterminate}
             onChange={onCheckAllChange}
             checked={checkAll}
             className="checkbox-item all-item"
           >
             All
-          </Checkbox>
+          </Checkbox> */}
           <CheckboxGroup
             className="checkbox-item"
             onChange={onChange}

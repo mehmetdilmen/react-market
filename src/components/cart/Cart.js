@@ -47,13 +47,13 @@ export default function Cart() {
       {cartState?.map((item, index) => (
         <div className="cart-item" key={index}>
           <Row>
-            <Col className="gutter-row" span={18}>
+            <Col className="gutter-row" xs={{ span: 18 }} sm={{ span: 18 }} md={{ span: 17 }} lg={{ span: 24 }} xl={{span: 15}} xxl={{span: 18}}>
               <div className="product">
                 <span className="name">{item.product.name}</span>
                 <span className="price">₺ {item.product.price}</span>
               </div>
             </Col>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" xs={{ span: 6 }} sm={{ span: 6 }} md={{ span: 7 }}  lg={{ span: 24 }} xl={{span: 8}} xxl={{span: 6}}>
               <div className="counter">
                 <ButtonGroup>
                   <Button
