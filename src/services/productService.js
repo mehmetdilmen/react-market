@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default class ProductService {
   getProducts() {
-    return axios.get("http://localhost:3001/apis/companies");
+    return axios.get("https://sleepy-island-02602.herokuapp.com/apis/companies");
   }
 
   getByProductName(productName) {
@@ -13,41 +13,41 @@ export default class ProductService {
   }
 
   getAllProduct() {
-    return axios.get(`http://localhost:3001/items`);
+    return axios.get(`https://sleepy-island-02602.herokuapp.com/items`);
   }
 
   getProductWithPagination(pageNumber) {
     return axios.get(
-      `http://localhost:3001/items?_page=${pageNumber}&_limit=16`
+      `https://sleepy-island-02602.herokuapp.com/items?_page=${pageNumber}&_limit=16`
     );
   }
 
   getProductFilterBrand(brandName) {
-    return axios.get(`http://localhost:3001/items?q=${brandName}&attr=manufacturer&_page=1&_limit=16`);
+    return axios.get(`https://sleepy-island-02602.herokuapp.com/items?q=${brandName}&attr=manufacturer&_page=1&_limit=16`);
   }
 
   getProductSortNewOld(addedTime) {
-    return axios.get(`http://localhost:3001/items?_sort=added=${addedTime}&_page=1&_limit=16`);
+    return axios.get(`https://sleepy-island-02602.herokuapp.com/items?_sort=added=${addedTime}&_page=1&_limit=16`);
   }
 
   getProductSortPrice(priceType) {
-    return axios.get(`http://localhost:3001/items?_sort=price&_order=${priceType}&_page=1&_limit=16`);
+    return axios.get(`https://sleepy-island-02602.herokuapp.com/items?_sort=price&_order=${priceType}&_page=1&_limit=16`);
   }
 
   getProductFilterTags(tagName) {
-    return axios.get(`http://localhost:3001/items?q=${tagName}&attr=tags&_page=1&_limit=16`);
+    return axios.get(`https://sleepy-island-02602.herokuapp.com/items?q=${tagName}&attr=tags&_page=1&_limit=16`);
   }
 
   getAllBrands() {
-    return axios.get("http://localhost:3001/brands");
+    return axios.get("https://sleepy-island-02602.herokuapp.com/brands");
   }
 
   getAllTags() {
-    return axios.get("http://localhost:3001/tags");
+    return axios.get("https://sleepy-island-02602.herokuapp.com/tags");
   }
 
   //Fulltext search with name
   getSearchBrandName(searchParam) {
-    return axios.get(`http://localhost:3001/brands?q=${searchParam}`);
+    return axios.get(`https://sleepy-island-02602.herokuapp.com/brands?q=${searchParam}`);
   }
 }
