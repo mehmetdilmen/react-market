@@ -6,8 +6,10 @@ import Logo from "./_partials/Logo";
 function Header() {
   return (
     <div className="header-main">
-      <Logo className="cart-position" />
-      <Cart />
+      <div className="header-inside">
+        <Logo />
+        <Cart />
+      </div>
     </div>
   );
 }

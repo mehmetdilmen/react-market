@@ -5,8 +5,6 @@
   height: 100%;
   background-color: $brand_2;
   display: flex;
-  position: absolute;
-  right: 105px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -18,7 +16,7 @@
 .icon-cart {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   margin-left: 15px;
 }
 
@@ -28,11 +26,24 @@
 }
 
 .cart-counter {
-  width: 100%;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  max-width: 300px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  color: $white;
-  font-weight: 700;
-  font-size: 16px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 24px;
+  background-color: #147594;
+  font-size: 14px;
+  cursor: pointer;
 }

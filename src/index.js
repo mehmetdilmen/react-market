@@ -4,13 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import { Row, Col } from "antd";
+
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
 
 import Header from "./layouts/header/Header";
-
-import { Row, Col } from "antd";
 import Footer from "./layouts/footer/Footer";
+
 
 const store = configureStore();
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -21,7 +22,7 @@ root.render(
         <Col span={24}>
           <Header />
         </Col>
-        <Col span={24}>
+        <Col span={24} className="content">
           <App />
         </Col>
         <Col span={24}>
