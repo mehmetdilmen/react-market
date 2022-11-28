@@ -2,7 +2,9 @@ import axios from "axios";
 
 export default class ProductService {
   getProducts() {
-    return axios.get("https://sleepy-island-02602.herokuapp.com/apis/companies");
+    return axios.get(
+      "https://sleepy-island-02602.herokuapp.com/apis/companies"
+    );
   }
 
   getByProductName(productName) {
@@ -23,19 +25,33 @@ export default class ProductService {
   }
 
   getProductFilterBrand(brandName) {
-    return axios.get(`https://sleepy-island-02602.herokuapp.com/items?q=${brandName}&attr=manufacturer&_page=1&_limit=16`);
+    return axios.get(
+      `https://sleepy-island-02602.herokuapp.com/items?q=${brandName}&attr=manufacturer&_page=1&_limit=16`
+    );
   }
 
   getProductSortNewOld(addedTime) {
-    return axios.get(`https://sleepy-island-02602.herokuapp.com/items?_sort=added=${addedTime}&_page=1&_limit=16`);
+    return axios.get(
+      `https://sleepy-island-02602.herokuapp.com/items?_sort=added=${addedTime}&_page=1&_limit=16`
+    );
   }
 
   getProductSortPrice(priceType) {
-    return axios.get(`https://sleepy-island-02602.herokuapp.com/items?_sort=price&_order=${priceType}&_page=1&_limit=16`);
+    return axios.get(
+      `https://sleepy-island-02602.herokuapp.com/items?_sort=price&_order=${priceType}&_page=1&_limit=16`
+    );
   }
 
   getProductFilterTags(tagName) {
-    return axios.get(`https://sleepy-island-02602.herokuapp.com/items?q=${tagName}&attr=tags&_page=1&_limit=16`);
+    if (tagName === "clear") {
+      return axios.get(
+        `https://sleepy-island-02602.herokuapp.com/items`
+      );
+    } else {
+      return axios.get(
+        `https://sleepy-island-02602.herokuapp.com/items?q=${tagName}&attr=tags&_page=1&_limit=16`
+      );
+    }
   }
 
   getAllBrands() {
@@ -48,6 +64,8 @@ export default class ProductService {
 
   //Fulltext search with name
   getSearchBrandName(searchParam) {
-    return axios.get(`https://sleepy-island-02602.herokuapp.com/brands?q=${searchParam}`);
+    return axios.get(
+      `https://sleepy-island-02602.herokuapp.com/brands?q=${searchParam}`
+    );
   }
 }

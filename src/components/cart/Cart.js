@@ -8,6 +8,8 @@ import "../../assets/styles/_cart.scss";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Input, Button, Row, Col, Divider } from "antd";
 
+import BagColorIcon from "../../../src/assets/icons/bagColorIcon.svg";
+
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 
@@ -47,13 +49,29 @@ export default function Cart() {
       {cartState?.map((item, index) => (
         <div className="cart-item" key={index}>
           <Row>
-            <Col className="gutter-row" xs={{ span: 18 }} sm={{ span: 18 }} md={{ span: 17 }} lg={{ span: 24 }} xl={{span: 15}} xxl={{span: 18}}>
+            <Col
+              className="gutter-row"
+              xs={{ span: 18 }}
+              sm={{ span: 18 }}
+              md={{ span: 17 }}
+              lg={{ span: 24 }}
+              xl={{ span: 15 }}
+              xxl={{ span: 16 }}
+            >
               <div className="product">
                 <span className="name">{item.product.name}</span>
                 <span className="price">₺ {item.product.price}</span>
               </div>
             </Col>
-            <Col className="gutter-row" xs={{ span: 6 }} sm={{ span: 6 }} md={{ span: 7 }}  lg={{ span: 24 }} xl={{span: 8}} xxl={{span: 6}}>
+            <Col
+              className="gutter-row"
+              xs={{ span: 6 }}
+              sm={{ span: 6 }}
+              md={{ span: 7 }}
+              lg={{ span: 24 }}
+              xl={{ span: 9 }}
+              xxl={{ span: 8 }}
+            >
               <div className="counter">
                 <ButtonGroup>
                   <Button
@@ -88,7 +106,14 @@ export default function Cart() {
           </div>
         </div>
       ) : (
-        <>No item :(</>
+        <Col style={{ width: "100%" }}>
+          <Row justify="center">
+            <img src={BagColorIcon} alt="" width="100" height="100" />
+          </Row>
+          <Row justify="center">
+            <span>Your cart is empty</span>
+          </Row>
+        </Col>
       )}
     </div>
   );

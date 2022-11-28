@@ -26,7 +26,7 @@ function Content() {
   const dispatch = useDispatch();
 
   const [productsTotalSize, setProductsTotalSize] = useState(0);
-  const [selectedTab, setSelectedTab] = useState("mug");
+  const [selectedTab, setSelectedTab] = useState(null);
 
   const productState = useSelector((state) => state?.product?.productItems);
   const productLoadingState = useSelector(
@@ -36,6 +36,9 @@ function Content() {
   const onTabChange = (tabName) => {
     setSelectedTab(tabName);
     let productService = new ProductService();
+    if (tabName === "clear") {
+      setSelectedTab(null);
+    }
     productService.getProductFilterTags(tabName).then((result) => {
       dispatch(listProduct(result));
       dispatch(listProductLoad(false));
@@ -78,6 +81,22 @@ function Content() {
         >
           shirt
         </Button>
+        {selectedTab !== null ? (
+          <>
+            <div className="spacer-tabs"></div>
+            <Button
+              type="primary"
+              className={
+                selectedTab == "clear" ? "btn-tab selected" : "btn-tab"
+              }
+              onClick={() => onTabChange("clear")}
+            >
+              clear
+            </Button>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       <Spin tip="Loading..." spinning={productLoadingState}>
         <ProductList data={productState} size={productsTotalSize} />

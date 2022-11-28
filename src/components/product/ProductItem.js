@@ -1,6 +1,5 @@
 import React from "react";
 import { Button } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
 
 import { useDispatch } from "react-redux";
@@ -21,7 +20,7 @@ function ProductItem({ data }) {
   return (
     <div className="product-item">
       <div className="img-area">
-        <Avatar shape="square" size={92} icon={<UserOutlined />} />
+        <Avatar shape="square" size={92} />
       </div>
       <div className="item-height">
         <span className="price">₺ {data.price}</span>
