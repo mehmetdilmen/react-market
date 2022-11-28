@@ -10,18 +10,14 @@ import "../assets/styles/_home.scss";
 
 export default function Home() {
   return (
-    <Row className="content-bg">
-      <Col className="gutter-row" xs={{ span: 24 }} lg={{ span: 5, offset: 0 }}>
+    <Row className="content-bg" gutter={{ xs: 0, lg: 24 }}>
+      <Col xs={{ span: 24 }} lg={{ span: 7 }}>
         <LeftSide />
       </Col>
-      <Col
-        className="gutter-row"
-        xs={{ span: 24 }}
-        lg={{ span: 10, offset: 1 }}
-      >
+      <Col xs={{ span: 24 }} lg={{ span: 11 }}>
         <Content />
       </Col>
-      <Col className="gutter-row" xs={{ span: 24 }} lg={{ span: 8, offset: 0 }}>
+      <Col xs={{ span: 24 }} lg={{ span: 6 }}>
         <RightSide />
       </Col>
     </Row>

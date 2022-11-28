@@ -6,7 +6,7 @@ import { Col, Row } from "antd";
 export default function RightSide() {
   return (
     <Row>
-      <Col className="gutter-row" xs={{ span: 24, offset: 0 }} lg={{ span: 22, offset: 2 }}>
+      <Col className="gutter-row" xs={{ span: 24, offset: 0 }} lg={{ span: 24, offset: 0 }}>
         <Cart />
       </Col>
     </Row>

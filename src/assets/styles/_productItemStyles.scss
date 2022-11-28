@@ -1,6 +1,6 @@
 @import "./variables";
 
-//mobile 
+//mobile
 @media only screen and (max-width: 600px) {
   .product-item {
     width: 130px;
@@ -27,13 +27,13 @@
   }
 
   .img-area {
-    border: 1px solid #c3c3c3;
+    border: 1.17px solid #f3f0fe;
     height: 124px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: $white;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 10px;
     margin-bottom: 10px;
   }
